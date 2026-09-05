@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor Desk · News Classification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="masthead">
+      <div class="brand">
+        <span class="mark">ED</span>
+        <div>
+          <p class="kicker">Newsroom · Classification desk</p>
+          <h1>Editor Desk</h1>
+        </div>
+      </div>
+      <p class="lede">
+        Paste a story, read the model’s category mix, and file it into the right section feed.
+      </p>
+      <nav class="nav">
+        <button class="nav-btn is-active" data-view="classify" type="button">Classify</button>
+        <button class="nav-btn" data-view="inbox" type="button">Editor inbox</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="view-classify" class="view is-visible">
+        <div class="desk">
+          <article class="panel composer">
+            <header class="panel-head">
+              <h2>Incoming copy</h2>
+              <span class="chip">7-section model</span>
+            </header>
+            <label>
+              Headline <span class="optional">(optional)</span>
+              <input id="headline" type="text" maxlength="180" placeholder="Global smartphone sales fall 5.7% in Q3" />
+            </label>
+            <label>
+              News article
+              <textarea
+                id="article"
+                rows="11"
+                placeholder="Paste the full story. Headline plus body are cleaned, then scored across automobile, entertainment, politics, science, sports, technology, and world."
+              ></textarea>
+            </label>
+            <p class="hint">The desk stores the story under the top category as soon as you classify it.</p>
+            <div class="actions">
+              <button id="classify-btn" class="primary" type="button">Classify &amp; route</button>
+              <button id="clear-btn" class="ghost" type="button">Clear</button>
+            </div>
+            <p id="form-error" class="error" hidden></p>
+          </article>
+
+          <aside class="panel verdict" id="verdict">
+            <header class="panel-head">
+              <h2>Category mix</h2>
+              <span id="status-chip" class="chip muted">Waiting for copy</span>
+            </header>
+            <div id="empty-state" class="empty">
+              <p>No prediction yet.</p>
+              <p>Submit a story to see percentage levels for every section and the feed it was filed to.</p>
+            </div>
+            <div id="result" hidden>
+              <div class="winner">
+                <p class="winner-kicker">Top section</p>
+                <h3 id="winner-name">Technology</h3>
+                <p id="winner-meta" class="winner-meta"></p>
+              </div>
+              <p id="review-flag" class="flag" hidden>Low confidence — send to editor review before publish.</p>
+              <ul id="score-list" class="scores"></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-inbox" class="view">
+        <div class="panel inbox">
+          <header class="panel-head inbox-head">
+            <div>
+              <h2>Section feeds</h2>
+              <p id="inbox-count" class="sub">Loading stories…</p>
+            </div>
+            <button id="refresh-btn" class="ghost" type="button">Refresh</button>
+          </header>
+          <div id="tabs" class="tabs" role="tablist"></div>
+          <div id="feed" class="feed"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>LinearSVC · TF-IDF · routed to <code>data/feeds</code></span>
+    </footer>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
